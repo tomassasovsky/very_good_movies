@@ -1,0 +1,2 @@
+To create a new package run:
+very_good create packages/movies_client -t dart_pkg

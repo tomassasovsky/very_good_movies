@@ -1,5 +1,5 @@
-name: movies_client
-description: The Client used to make requests to the Movie Database API
+name: credits_repository
+description: A Very Good Project created by Very Good CLI.
 version: 1.0.0+1
 publish_to: none
 
@@ -7,8 +7,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  equatable: ^2.0.3
-  http: ^0.13.4
+  movies_client:
+    path: ../movies_client
 
 dev_dependencies:
   mocktail: ^0.3.0

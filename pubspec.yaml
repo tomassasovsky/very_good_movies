@@ -9,12 +9,19 @@ environment:
 
 dependencies:
   bloc: ^8.0.3
+  credits_repository:
+    path: packages/credits_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  movies_client:
+    path: packages/movies_client
+  movies_repository:
+    path: packages/movies_repository
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -26,3 +33,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - ./
