@@ -1,4 +1,5 @@
 import 'package:credits_repository/credits_repository.dart';
+import 'package:data_persistence_repository/data_persistence_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,7 +10,12 @@ import 'package:very_good_movies/counter/counter.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
 class PageApp extends StatelessWidget {
-  const PageApp({super.key});
+  const PageApp({
+    super.key,
+    required this.dataPersistenceRepository,
+  });
+
+  final DataPersistenceRepository dataPersistenceRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +27,7 @@ class PageApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: moviesClient),
+        RepositoryProvider.value(value: dataPersistenceRepository),
         RepositoryProvider.value(value: MoviesRepository(moviesClient)),
         RepositoryProvider.value(value: CreditsRepository(moviesClient)),
       ],

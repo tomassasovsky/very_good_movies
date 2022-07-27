@@ -11,12 +11,15 @@ dependencies:
   bloc: ^8.0.3
   credits_repository:
     path: packages/credits_repository
+  data_persistence_repository:
+    path: packages/data_persistence_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
+  hive: ^2.2.3
   intl: ^0.17.0
   movies_client:
     path: packages/movies_client
