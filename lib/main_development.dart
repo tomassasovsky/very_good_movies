@@ -7,6 +7,7 @@ void main() async {
   await dotenv.load();
   const dataPersistenceRepository = DataPersistenceRepository();
   await dataPersistenceRepository.init();
+
   await bootstrap(
     () => const PageApp(
       dataPersistenceRepository: dataPersistenceRepository,

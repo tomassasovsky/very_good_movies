@@ -3,5 +3,14 @@
     "counterAppBarTitle": "Contador",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "unknownPath": "Ruta desconocida",
+    "noRoutesForLocation": "No existe la ruta: {path}",
+    "@noRoutesForLocation": {
+        "placeholders": {
+            "path": {
+                "type": "String"
+            }
+        }
     }
 }

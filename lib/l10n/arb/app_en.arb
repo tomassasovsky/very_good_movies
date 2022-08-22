@@ -3,5 +3,14 @@
     "counterAppBarTitle": "Counter",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "unknownPath": "Unknown path",
+    "noRoutesForLocation": "No router for location: {path}",
+    "@noRoutesForLocation": {
+        "placeholders": {
+            "path": {
+                "type": "String"
+            }
+        }
     }
 }

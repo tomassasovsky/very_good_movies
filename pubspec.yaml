@@ -8,6 +8,7 @@ environment:
   flutter: 3.0.4
 
 dependencies:
+  appsize: ^1.0.1
   bloc: ^8.0.3
   credits_repository:
     path: packages/credits_repository
@@ -19,6 +20,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
+  go_router: ^4.2.4
   hive: ^2.2.3
   intl: ^0.17.0
   movies_client:
@@ -38,4 +40,4 @@ flutter:
   generate: true
 
   assets:
-    - ./
+    - .env
