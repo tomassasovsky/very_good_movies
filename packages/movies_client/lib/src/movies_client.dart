@@ -63,7 +63,6 @@ class MoviesClient {
     final response = await _get<JSON>('/3/movie/popular', {
       'page': '$page',
     });
-
     try {
       return PaginatedResponse<Movie>.fromJson(Movie.fromJson, response);
     } catch (e) {

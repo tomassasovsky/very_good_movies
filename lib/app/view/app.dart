@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_client/movies_client.dart';
 import 'package:movies_repository/movies_repository.dart';
+import 'package:very_good_movies/home/home.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
 class PageApp extends StatelessWidget {
@@ -80,7 +81,13 @@ class _AppState extends State<App> {
   GoRouter router() {
     return GoRouter(
       errorBuilder: (context, state) => RoutingErrorPage(state.path),
-      routes: <GoRoute>[],
+      routes: <GoRoute>[
+        GoRoute(
+          path: '/',
+          name: PageHome.name,
+          builder: (context, state) => const PageHome(),
+        ),
+      ],
     );
   }
 }

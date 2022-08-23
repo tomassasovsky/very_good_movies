@@ -14,6 +14,7 @@ dependencies:
     path: packages/credits_repository
   data_persistence_repository:
     path: packages/data_persistence_repository
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
