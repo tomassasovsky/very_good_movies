@@ -12,5 +12,8 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "internetFailure": "Internet failure",
+    "typeFailure": "Server response type is not valid",
+    "unknownFailure": "Unknown failure"
 }

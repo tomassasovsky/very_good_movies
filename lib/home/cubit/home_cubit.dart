@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movies_client/movies_client.dart';
@@ -38,8 +40,12 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
           nowPlayingMovies: nowPlayingMovies,
         ),
       );
+    } on SocketException {
+      emit(const HomeInternetFailure());
+    } on SpecifiedTypeNotMatchedException {
+      emit(const HomeTypeFailure());
     } catch (error) {
-      emit(const HomeFailure());
+      emit(const HomeUnknownFailure());
     }
   }
 

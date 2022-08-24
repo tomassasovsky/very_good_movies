@@ -85,4 +85,7 @@ class Movie {
 
   /// The vote average of the movie.
   final num? voteAverage;
+
+  /// Returns the full path of the poster of the movie.
+  String get posterFullPath => 'https://image.tmdb.org/t/p/w500$posterPath';
 }

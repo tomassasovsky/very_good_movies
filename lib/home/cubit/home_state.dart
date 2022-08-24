@@ -7,6 +7,9 @@ abstract class HomeState extends Equatable {
   /// {@macro home_state}
   const HomeState();
 
+  bool get isInternetFailure => this is HomeInternetFailure;
+  bool get isTypeFailure => this is HomeTypeFailure;
+
   @override
   List<Object?> get props => [];
 }
@@ -51,4 +54,29 @@ class HomeSuccess extends HomeState {
 class HomeFailure extends HomeState {
   /// {@macro home_failure}
   const HomeFailure();
+}
+
+/// {@template home_internet_failure}
+/// When the state of failure is due to the lack of internet.
+/// {@endtemplate}
+class HomeInternetFailure extends HomeFailure {
+  /// {@macro home_internet_failure}
+  const HomeInternetFailure();
+}
+
+/// {@template home_type_failure}
+/// When the state of failure is due to the type of the response not
+/// matching the expected type.
+/// {@endtemplate}
+class HomeTypeFailure extends HomeFailure {
+  /// {@macro home_type_failure}
+  const HomeTypeFailure();
+}
+
+/// {@template home_unknown_failure}
+/// When the state of failure is due to an unknown error.
+/// {@endtemplate}
+class HomeUnknownFailure extends HomeFailure {
+  /// {@macro home_unknown_failure}
+  const HomeUnknownFailure();
 }

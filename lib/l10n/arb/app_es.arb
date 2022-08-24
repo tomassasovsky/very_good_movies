@@ -12,5 +12,8 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "internetFailure": "Falla de Internet",
+    "typeFailure": "La respuesta del servidor no es del tipo esperado",
+    "unknownFailure": "Error desconocido"
 }

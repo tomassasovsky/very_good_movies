@@ -58,7 +58,7 @@ class PaginatedResponse<T> {
   final int totalResults;
 
   /// The results of the response.
-  final List<T>? results;
+  final List<T> results;
 
   /// The dates of the movies.
   final MoviesDates? dates;
