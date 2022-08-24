@@ -1,7 +1,9 @@
 import 'package:appsize/appsize.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_client/movies_client.dart';
 import 'package:paginated_list/paginated_list.dart';
+import 'package:very_good_movies/home/cubit/home_cubit.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider(
@@ -23,7 +25,15 @@ class _MovieSliderState extends State<MovieSlider> {
       height: 230.sp,
       child: PaginatedList<Movie>(
         items: widget.movies,
-        onLoadMore: (index) {},
+        onLoadMore: (index) => context.read<HomeCubit>().getMorePopularMovies(),
+        loadingIndicator: Padding(
+          padding: EdgeInsets.only(right: 20.sp, bottom: 30.sp),
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          ),
+        ),
         isLastPage: false,
         scrollDirection: Axis.horizontal,
         builder: (item, index) => MoviePoster(

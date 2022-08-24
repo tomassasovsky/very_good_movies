@@ -39,13 +39,36 @@ class HomeSuccess extends HomeState {
   const HomeSuccess({
     required this.popularMovies,
     required this.nowPlayingMovies,
+    required this.popularIndex,
+    required this.nowPlayingIndex,
   });
 
-  final PaginatedResponse<Movie> popularMovies;
-  final PaginatedResponse<Movie> nowPlayingMovies;
+  final List<Movie> popularMovies;
+  final List<Movie> nowPlayingMovies;
+  final int popularIndex;
+  final int nowPlayingIndex;
 
   @override
-  List<Object?> get props => [popularMovies, nowPlayingMovies];
+  List<Object?> get props => [
+        popularMovies,
+        nowPlayingMovies,
+        popularIndex,
+        nowPlayingIndex,
+      ];
+}
+
+/// {@template home_fetching_more_movies}
+/// This represent the state of success when fetching more
+/// movies for the movie slider.
+/// {@endtemplate}
+class HomeFetchingMoreMovies extends HomeSuccess {
+  /// {@macro home_fetching_more_movies}
+  const HomeFetchingMoreMovies({
+    required super.popularMovies,
+    required super.nowPlayingMovies,
+    required super.popularIndex,
+    required super.nowPlayingIndex,
+  });
 }
 
 /// {@template home_failure}

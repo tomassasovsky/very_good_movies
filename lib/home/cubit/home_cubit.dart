@@ -13,6 +13,9 @@ abstract class HomeCubitBase {
   /// This method is used to get all the movies we
   /// are going to be using in the home feature.
   Future<void> getMovies();
+
+  /// This method is used to fetch more popular movies.
+  Future<void> getMorePopularMovies();
 }
 
 class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
@@ -36,8 +39,10 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
 
       emit(
         HomeSuccess(
-          popularMovies: popularMovies,
-          nowPlayingMovies: nowPlayingMovies,
+          popularMovies: popularMovies.results,
+          nowPlayingMovies: nowPlayingMovies.results,
+          popularIndex: 1,
+          nowPlayingIndex: 1,
         ),
       );
     } on SocketException {
@@ -50,4 +55,40 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
   }
 
   final MoviesRepository _moviesRepository;
+
+  @override
+  Future<void> getMorePopularMovies() async {
+    final _state = state;
+    if (_state is! HomeSuccess) return;
+    emit(
+      HomeFetchingMoreMovies(
+        popularMovies: _state.popularMovies,
+        nowPlayingMovies: _state.nowPlayingMovies,
+        popularIndex: _state.popularIndex,
+        nowPlayingIndex: _state.nowPlayingIndex,
+      ),
+    );
+    try {
+      final newPopularMovies = await _moviesRepository.getPopular(
+        _state.popularIndex + 1,
+      );
+
+      _state.popularMovies.addAll(newPopularMovies.results);
+
+      emit(
+        HomeSuccess(
+          popularMovies: _state.popularMovies,
+          nowPlayingMovies: _state.nowPlayingMovies,
+          popularIndex: _state.popularIndex + 1,
+          nowPlayingIndex: _state.nowPlayingIndex,
+        ),
+      );
+    } on SocketException {
+      emit(const HomeInternetFailure());
+    } on SpecifiedTypeNotMatchedException {
+      emit(const HomeTypeFailure());
+    } catch (error) {
+      emit(const HomeUnknownFailure());
+    }
+  }
 }

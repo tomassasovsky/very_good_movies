@@ -55,8 +55,8 @@ class _ViewHomeState extends State<ViewHome> {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  CardSwiper(state.popularMovies.results),
-                  MovieSlider(state.nowPlayingMovies.results),
+                  CardSwiper(state.nowPlayingMovies),
+                  MovieSlider(state.popularMovies),
                 ],
               ),
             );
