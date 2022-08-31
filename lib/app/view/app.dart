@@ -2,12 +2,14 @@ import 'package:appsize/appsize.dart';
 import 'package:credits_repository/credits_repository.dart';
 import 'package:data_persistence_repository/data_persistence_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_client/movies_client.dart';
 import 'package:movies_repository/movies_repository.dart';
+import 'package:very_good_movies/details/view/details_page.dart';
 import 'package:very_good_movies/home/home.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
@@ -52,6 +54,13 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _router = router();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+      ),
+    );
   }
 
   @override
@@ -86,6 +95,17 @@ class _AppState extends State<App> {
           path: '/',
           name: PageHome.name,
           builder: (context, state) => const PageHome(),
+        ),
+        GoRoute(
+          path: '/details',
+          name: PageDetails.name,
+          builder: (context, state) {
+            final movie = (state.extra as Map?)?['movie'] as Movie?;
+            if (movie == null) {
+              throw ArgumentError.notNull('movie');
+            }
+            return PageDetails(movie);
+          },
         ),
       ],
     );

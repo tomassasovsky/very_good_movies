@@ -13,7 +13,12 @@ class CreditsRepository {
   final MoviesClient _client;
 
   /// Method that make the request to get the most popular movies.
-  Future<Credit> getCredits(int page) async {
-    return _client.getCredits(page);
+  Future<Credits> getCredits(int page, int? movieId) async {
+    /// If the movieId is null, then we will throw an [ArgumentError].
+    if (movieId == null) {
+      throw ArgumentError.notNull('movieId');
+    }
+
+    return _client.getCredits(page, movieId);
   }
 }

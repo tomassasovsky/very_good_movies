@@ -1,18 +1,18 @@
 part of 'models.dart';
 
-/// {@template credit}
+/// {@template credits}
 /// A class that represents a credit element.
 /// {@endtemplate}
-class Credit {
-  /// {@macro credit}
-  Credit({
+class Credits {
+  /// {@macro credits}
+  Credits({
     this.id,
     required this.cast,
     required this.crew,
   });
 
-  /// Returns a new [Credit] with the given [Map<String, dynamic>].
-  factory Credit.fromJson(Map<String, dynamic> json) {
+  /// Returns a new [Credits] with the given [Map<String, dynamic>].
+  factory Credits.fromJson(Map<String, dynamic> json) {
     // make sure we're dealing with a JSON map
     json = json.cast<String, dynamic>();
 
@@ -34,7 +34,7 @@ class Credit {
     final parsedCast = castItems.map(CastCrew.fromJson).toList();
     final parsedCrew = crewItems.map(CastCrew.fromJson).toList();
 
-    return Credit(
+    return Credits(
       id: json['id'] as int?,
       cast: parsedCast,
       crew: parsedCrew,
@@ -134,4 +134,13 @@ class CastCrew {
 
   /// The job of the movie.
   String? job;
+
+  /// Returns the URL to the profile image of the actor.
+  String get fullProfilePath {
+    if (profilePath != null) {
+      return 'https://image.tmdb.org/t/p/w500$profilePath';
+    }
+
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
 }

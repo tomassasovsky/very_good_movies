@@ -71,13 +71,13 @@ class MoviesClient {
   }
 
   /// Method that make the request to get the most popular movies.
-  Future<Credit> getCredits(int page) async {
-    final response = await _get<JSON>('/3/movie/popular', {
+  Future<Credits> getCredits(int page, int movieId) async {
+    final response = await _get<JSON>('/3/movie/$movieId/credits', {
       'page': '$page',
     });
 
     try {
-      return Credit.fromJson(response);
+      return Credits.fromJson(response);
     } catch (e) {
       throw const SpecifiedTypeNotMatchedException();
     }
