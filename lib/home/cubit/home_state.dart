@@ -7,6 +7,7 @@ abstract class HomeState extends Equatable {
   /// {@macro home_state}
   const HomeState();
 
+  bool get isFailure => this is HomeFailure;
   bool get isInternetFailure => this is HomeInternetFailure;
   bool get isTypeFailure => this is HomeTypeFailure;
 
@@ -39,14 +40,28 @@ class HomeSuccess extends HomeState {
   const HomeSuccess({
     required this.popularMovies,
     required this.nowPlayingMovies,
-    required this.popularIndex,
-    required this.nowPlayingIndex,
+    this.popularIndex = 1,
+    this.nowPlayingIndex = 1,
   });
 
   final List<Movie> popularMovies;
   final List<Movie> nowPlayingMovies;
   final int popularIndex;
   final int nowPlayingIndex;
+
+  HomeSuccess copyWith({
+    List<Movie>? popularMovies,
+    List<Movie>? nowPlayingMovies,
+    int? popularIndex,
+    int? nowPlayingIndex,
+  }) {
+    return HomeSuccess(
+      popularMovies: popularMovies ?? this.popularMovies,
+      nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
+      popularIndex: popularIndex ?? this.popularIndex,
+      nowPlayingIndex: nowPlayingIndex ?? this.nowPlayingIndex,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -69,6 +84,15 @@ class HomeFetchingMoreMovies extends HomeSuccess {
     required super.popularIndex,
     required super.nowPlayingIndex,
   });
+
+  factory HomeFetchingMoreMovies.fromSuccess(HomeSuccess state) {
+    return HomeFetchingMoreMovies(
+      popularMovies: state.popularMovies,
+      nowPlayingMovies: state.nowPlayingMovies,
+      popularIndex: state.popularIndex,
+      nowPlayingIndex: state.nowPlayingIndex,
+    );
+  }
 }
 
 /// {@template home_failure}

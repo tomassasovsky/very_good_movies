@@ -1,6 +1,7 @@
 import 'package:appsize/appsize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movies_client/movies_client.dart';
+import 'package:very_good_movies/l10n/l10n.dart';
 
 class CastingCards extends StatelessWidget {
   const CastingCards(this.credit, {super.key});
@@ -16,7 +17,7 @@ class CastingCards extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Cast',
+            context.l10n.cast,
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold,

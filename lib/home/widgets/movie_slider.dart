@@ -1,9 +1,12 @@
 import 'package:appsize/appsize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_client/movies_client.dart';
 import 'package:paginated_list/paginated_list.dart';
+import 'package:very_good_movies/details/view/details_page.dart';
 import 'package:very_good_movies/home/cubit/home_cubit.dart';
+import 'package:very_good_movies/home/widgets/widgets.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider(
@@ -26,14 +29,7 @@ class _MovieSliderState extends State<MovieSlider> {
       child: PaginatedList<Movie>(
         items: widget.movies,
         onLoadMore: (index) => context.read<HomeCubit>().getMorePopularMovies(),
-        loadingIndicator: Padding(
-          padding: EdgeInsets.only(right: 20.sp, bottom: 30.sp),
-          child: const Center(
-            child: CircularProgressIndicator(
-              color: Colors.black,
-            ),
-          ),
-        ),
+        loadingIndicator: const PaginateLoadingMoreIndicator(),
         isLastPage: false,
         scrollDirection: Axis.horizontal,
         builder: (item, index) => MoviePoster(
@@ -64,13 +60,14 @@ class MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(
-              context,
-              'details',
-              arguments: movie,
+            onTap: () => context.pushNamed(
+              PageDetails.name,
+              extra: <String, Movie>{
+                'movie': movie,
+              },
             ),
             child: Hero(
-              tag: heroId,
+              tag: '${movie.id}-${movie.posterPath}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(

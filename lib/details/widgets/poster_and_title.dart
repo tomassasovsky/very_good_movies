@@ -21,7 +21,7 @@ class PosterAndTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Hero(
-            tag: movie.id ?? movie,
+            tag: 'poster-${movie.id}-${movie.posterPath}',
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
@@ -34,6 +34,7 @@ class PosterAndTitle extends StatelessWidget {
           SizedBox(width: 20.sp),
           SizedBox(
             height: 150.sp,
+            width: 55.dw,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,

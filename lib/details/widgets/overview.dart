@@ -20,6 +20,10 @@ class Overview extends StatelessWidget {
       child: Text(
         movie.overview ?? '',
         textAlign: TextAlign.justify,
+        style: TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

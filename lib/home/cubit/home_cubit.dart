@@ -41,8 +41,6 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
         HomeSuccess(
           popularMovies: popularMovies.results,
           nowPlayingMovies: nowPlayingMovies.results,
-          popularIndex: 1,
-          nowPlayingIndex: 1,
         ),
       );
     } on SocketException {
@@ -61,12 +59,7 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
     final _state = state;
     if (_state is! HomeSuccess) return;
     emit(
-      HomeFetchingMoreMovies(
-        popularMovies: _state.popularMovies,
-        nowPlayingMovies: _state.nowPlayingMovies,
-        popularIndex: _state.popularIndex,
-        nowPlayingIndex: _state.nowPlayingIndex,
-      ),
+      HomeFetchingMoreMovies.fromSuccess(_state),
     );
     try {
       final newPopularMovies = await _moviesRepository.getPopular(
@@ -76,11 +69,8 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
       _state.popularMovies.addAll(newPopularMovies.results);
 
       emit(
-        HomeSuccess(
-          popularMovies: _state.popularMovies,
-          nowPlayingMovies: _state.nowPlayingMovies,
+        _state.copyWith(
           popularIndex: _state.popularIndex + 1,
-          nowPlayingIndex: _state.nowPlayingIndex,
         ),
       );
     } on SocketException {

@@ -87,5 +87,5 @@ class Movie {
   final num? voteAverage;
 
   /// Returns the full path of the poster of the movie.
-  String get posterFullPath => 'https://image.tmdb.org/t/p/w500$posterPath';
+  String get posterFullPath => posterPath == null ? 'https://i.stack.imgur.com/GNhxO.png' : 'https://image.tmdb.org/t/p/w500$posterPath';
 }

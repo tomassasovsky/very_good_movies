@@ -46,7 +46,7 @@ class CardSwiper extends StatelessWidget {
               );
             },
             child: Hero(
-              tag: index,
+              tag: 'card-swiper-${movie.id}-${movie.posterPath}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_repository/movies_repository.dart';
 import 'package:very_good_movies/home/cubit/home_cubit.dart';
+import 'package:very_good_movies/home/view/search_delegate.dart';
 import 'package:very_good_movies/home/widgets/widgets.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
 
@@ -39,12 +40,15 @@ class _ViewHomeState extends State<ViewHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
-        elevation: 0,
+        title: Text(context.l10n.home),
+        elevation: 4,
         actions: [
           IconButton(
             icon: const Icon(Icons.search_outlined),
-            onPressed: () {}, // => showSearch(context: context, delegate: delegate),
+            onPressed: () => showSearch(
+              context: context,
+              delegate: MovieSearchDelegate(context.l10n.searchMovie),
+            ),
           ),
         ],
       ),
@@ -60,7 +64,7 @@ class _ViewHomeState extends State<ViewHome> {
                 ],
               ),
             );
-          } else if (state is HomeFailure) {
+          } else if (state.isFailure) {
             return Center(
               child: Builder(
                 builder: (context) {
@@ -84,7 +88,9 @@ class _ViewHomeState extends State<ViewHome> {
             );
           } else if (state is HomeAttempting) {
             return const Center(
-              child: Text('Attempting'),
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
             );
           }
           return const SizedBox();

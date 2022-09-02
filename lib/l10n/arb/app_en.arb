@@ -15,5 +15,9 @@
     },
     "internetFailure": "Internet failure",
     "typeFailure": "Server response type is not valid",
-    "unknownFailure": "Unknown failure"
+    "unknownFailure": "Unknown failure",
+    "noSuggests": "No suggestions",
+    "searchMovie": "Search a movie",
+    "home": "Home",
+    "cast": "Cast"
 }
