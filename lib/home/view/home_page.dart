@@ -114,9 +114,9 @@ class _ViewHomeState extends State<ViewHome> {
                   ),
                 );
               } else if (state is HomeAttempting) {
-                return const Center(
+                return Center(
                   child: CircularProgressIndicator(
-                    color: Colors.black,
+                    color: Theme.of(context).appBarTheme.backgroundColor,
                   ),
                 );
               }
