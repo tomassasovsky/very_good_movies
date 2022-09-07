@@ -40,24 +40,28 @@ class HomeSuccess extends HomeState {
   const HomeSuccess({
     required this.popularMovies,
     required this.nowPlayingMovies,
+    required this.languages,
     this.popularIndex = 1,
     this.nowPlayingIndex = 1,
   });
 
   final List<Movie> popularMovies;
   final List<Movie> nowPlayingMovies;
+  final List<Language> languages;
   final int popularIndex;
   final int nowPlayingIndex;
 
   HomeSuccess copyWith({
     List<Movie>? popularMovies,
     List<Movie>? nowPlayingMovies,
+    List<Language>? languages,
     int? popularIndex,
     int? nowPlayingIndex,
   }) {
     return HomeSuccess(
       popularMovies: popularMovies ?? this.popularMovies,
       nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
+      languages: languages ?? this.languages,
       popularIndex: popularIndex ?? this.popularIndex,
       nowPlayingIndex: nowPlayingIndex ?? this.nowPlayingIndex,
     );
@@ -67,6 +71,7 @@ class HomeSuccess extends HomeState {
   List<Object?> get props => [
         popularMovies,
         nowPlayingMovies,
+        languages,
         popularIndex,
         nowPlayingIndex,
       ];
@@ -81,6 +86,7 @@ class HomeFetchingMoreMovies extends HomeSuccess {
   const HomeFetchingMoreMovies({
     required super.popularMovies,
     required super.nowPlayingMovies,
+    required super.languages,
     required super.popularIndex,
     required super.nowPlayingIndex,
   });
@@ -89,6 +95,7 @@ class HomeFetchingMoreMovies extends HomeSuccess {
     return HomeFetchingMoreMovies(
       popularMovies: state.popularMovies,
       nowPlayingMovies: state.nowPlayingMovies,
+      languages: state.languages,
       popularIndex: state.popularIndex,
       nowPlayingIndex: state.nowPlayingIndex,
     );

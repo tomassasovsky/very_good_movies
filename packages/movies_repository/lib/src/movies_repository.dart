@@ -12,6 +12,11 @@ class MoviesRepository {
   /// The client used to make requests.
   final MoviesClient _client;
 
+  /// Method to update the language of the movies.
+  void setLanguage(String language) {
+    _client.changeLanguage(language);
+  }
+
   /// Method that make the request to get the now playing movies.
   Future<PaginatedResponse<Movie>> getNowPlaying(int page) async {
     return _client.getNowPlaying(page);

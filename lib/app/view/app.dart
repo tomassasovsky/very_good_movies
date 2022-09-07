@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:appsize/appsize.dart';
 import 'package:credits_repository/credits_repository.dart';
 import 'package:data_persistence_repository/data_persistence_repository.dart';
@@ -13,6 +15,9 @@ import 'package:very_good_movies/details/view/details_page.dart';
 import 'package:very_good_movies/home/home.dart';
 import 'package:very_good_movies/home/search_cubit/search_cubit.dart';
 import 'package:very_good_movies/l10n/l10n.dart';
+import 'package:very_good_movies/settings/cubit/settings_cubit.dart';
+import 'package:very_good_movies/settings/models/movie_theme.dart';
+import 'package:very_good_movies/settings/view/settings_page.dart';
 
 class PageApp extends StatelessWidget {
   const PageApp({
@@ -24,13 +29,35 @@ class PageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = dataPersistenceRepository.language ?? 'en_US';
+
     final moviesClient = MoviesClient(
       apiKey: dotenv.env['API_KEY'] ?? '',
-      language: dataPersistenceRepository.language ?? 'en_US',
+      language: language,
     );
 
     final moviesRepository = MoviesRepository(moviesClient);
     final creditsRepository = CreditsRepository(moviesClient);
+
+    final isDarkMode = dataPersistenceRepository.isDarkMode ?? true;
+
+    if (!isDarkMode) {
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+        ),
+      );
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.grey.shade700,
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+        ),
+      );
+    }
 
     return MultiRepositoryProvider(
       providers: [
@@ -39,9 +66,24 @@ class PageApp extends StatelessWidget {
         RepositoryProvider.value(value: moviesRepository),
         RepositoryProvider.value(value: creditsRepository),
       ],
-      child: BlocProvider(
-        create: (_) => SearchCubit(moviesRepository: moviesRepository),
-        child: const App(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => SearchCubit(moviesRepository: moviesRepository),
+          ),
+          BlocProvider(
+            create: (_) => SettingsCubit(
+              language: language,
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              dataPersistenceRepository: dataPersistenceRepository,
+              creditsRepository: creditsRepository,
+              moviesRepository: moviesRepository,
+            ),
+          ),
+        ],
+        child: AppSize.child(
+          child: const App(),
+        ),
       ),
     );
   }
@@ -61,35 +103,25 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _router = router();
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.light, // For Android (dark icons)
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Colors.black87),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
-      ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) => AppSize(
-        builder: (context, orientation, deviceType) => child!,
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.bodyText1!,
+      child: MaterialApp.router(
+        routeInformationProvider: _router.routeInformationProvider,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        debugShowCheckedModeBanner: false,
+        themeMode: context.watch<SettingsCubit>().state.themeMode,
+        theme: MovieTheme.lightTheme,
+        darkTheme: MovieTheme.darkTheme,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
       ),
     );
   }
@@ -112,6 +144,19 @@ class _AppState extends State<App> {
               throw ArgumentError.notNull('movie');
             }
             return PageDetails(movie);
+          },
+        ),
+        GoRoute(
+          path: '/settins',
+          name: ViewSettings.name,
+          builder: (context, state) {
+            final languages = (state.extra as Map?)?['languages'] as List<Language>?;
+            if (languages == null) {
+              throw ArgumentError.notNull('movie');
+            }
+            return ViewSettings(
+              languages: languages,
+            );
           },
         ),
       ],

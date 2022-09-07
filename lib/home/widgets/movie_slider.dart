@@ -69,14 +69,14 @@ class MoviePoster extends StatelessWidget {
             child: Hero(
               tag: '${movie.id}-${movie.posterPath}',
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.sp),
                 child: FadeInImage(
                   placeholder: const AssetImage(
                     'assets/no-image.jpg',
                   ),
                   image: NetworkImage(movie.posterFullPath),
-                  width: 130,
-                  height: 190,
+                  width: 130.sp,
+                  height: 190.sp,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -85,6 +85,7 @@ class MoviePoster extends StatelessWidget {
           SizedBox(height: 5.sp),
           Text(
             movie.title ?? '',
+            style: Theme.of(context).textTheme.bodyText1,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

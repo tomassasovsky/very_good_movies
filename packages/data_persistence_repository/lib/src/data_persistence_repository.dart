@@ -23,6 +23,10 @@ class DataPersistenceRepository {
     await Future.wait([
       Hive.openBox<dynamic>(DataPersistenceRepository._settingBox),
     ]);
+
+    if (isDarkMode == null) {
+      await settingBox.put(AppSettingsKeys.isDarkMode.name, true);
+    }
   }
 
   /// Method to get the settings [Box].
@@ -31,8 +35,14 @@ class DataPersistenceRepository {
   /// Method to get the language of the app.
   String? get language => settingBox.get(AppSettingsKeys.language.name) as String?;
 
+  /// Method to get the theme of the app.
+  bool? get isDarkMode => settingBox.get(AppSettingsKeys.isDarkMode.name) as bool?;
+
   /// Method to set the language of the app.
-  Future<void> setLanguage(String language) async => settingBox.put(AppSettingsKeys.language, language);
+  Future<void> setLanguage(String language) async => settingBox.put(AppSettingsKeys.language.name, language);
+
+  /// Method to set the theme of the app.
+  Future<void> toggleDarkMode() async => settingBox.put(AppSettingsKeys.isDarkMode.name, !isDarkMode!);
 
   /// The name of the app settings box.
   static const _settingBox = 'settings';
@@ -44,4 +54,7 @@ class DataPersistenceRepository {
 enum AppSettingsKeys {
   /// Language key.
   language,
+
+  /// App theme key.
+  isDarkMode,
 }

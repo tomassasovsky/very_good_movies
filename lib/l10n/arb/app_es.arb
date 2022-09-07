@@ -19,5 +19,8 @@
     "noSuggests": "No hay sugerencias",
     "searchMovie": "Buscar una película",
     "home": "Inicio",
-    "cast": "Elenco"
+    "cast": "Elenco",
+    "settings": "Ajustes",
+    "darkMode": "Modo oscuro",
+    "language": "Language"
 }

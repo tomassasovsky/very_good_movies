@@ -8,7 +8,7 @@ environment:
   flutter: 3.0.4
 
 dependencies:
-  appsize: ^1.1.0+2
+  appsize: ^1.2.0
   bloc: ^8.0.3
   card_swiper: ^2.0.4
   credits_repository:

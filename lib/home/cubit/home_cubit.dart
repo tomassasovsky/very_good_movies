@@ -12,7 +12,7 @@ abstract class HomeCubitBase {
 
   /// This method is used to get all the movies we
   /// are going to be using in the home feature.
-  Future<void> getMovies();
+  Future<void> init();
 
   /// This method is used to fetch more popular movies.
   Future<void> getMorePopularMovies();
@@ -20,25 +20,30 @@ abstract class HomeCubitBase {
 
 class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
   HomeCubit({
+    required MoviesClient moviesClient,
     required MoviesRepository moviesRepository,
   })  : _moviesRepository = moviesRepository,
+        _moviesClient = moviesClient,
         super(const HomeInitial());
 
   @override
-  Future<void> getMovies() async {
+  Future<void> init() async {
     emit(const HomeAttempting());
 
     try {
-      final movies = await Future.wait([
+      final responses = await Future.wait([
         _moviesRepository.getPopular(1),
         _moviesRepository.getNowPlaying(1),
+        _moviesClient.getLanguages(),
       ]);
 
-      final popularMovies = movies.first;
-      final nowPlayingMovies = movies.last;
+      final popularMovies = responses[0] as PaginatedResponse<Movie>;
+      final nowPlayingMovies = responses[1] as PaginatedResponse<Movie>;
+      final languages = responses[2] as List<Language>;
 
       emit(
         HomeSuccess(
+          languages: languages,
           popularMovies: popularMovies.results,
           nowPlayingMovies: nowPlayingMovies.results,
         ),
@@ -53,6 +58,7 @@ class HomeCubit extends Cubit<HomeState> implements HomeCubitBase {
   }
 
   final MoviesRepository _moviesRepository;
+  final MoviesClient _moviesClient;
 
   @override
   Future<void> getMorePopularMovies() async {

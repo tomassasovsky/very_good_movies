@@ -47,21 +47,14 @@ class PosterAndTitle extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.right,
                       maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     Text(
                       movie.originalTitle ?? '',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.right,
                       maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.grey.shade800,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ],
                 ),

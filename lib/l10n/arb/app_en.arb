@@ -19,5 +19,8 @@
     "noSuggests": "No suggestions",
     "searchMovie": "Search a movie",
     "home": "Home",
-    "cast": "Cast"
+    "cast": "Cast",
+    "settings": "Settings",
+    "darkMode": "Dark mode",
+    "language": "Language"
 }

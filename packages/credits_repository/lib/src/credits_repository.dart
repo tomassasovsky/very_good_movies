@@ -12,6 +12,11 @@ class CreditsRepository {
   /// The client used to make requests.
   final MoviesClient _client;
 
+  /// Method to update the language of the movies.
+  void setLanguage(String language) {
+    _client.changeLanguage(language);
+  }
+
   /// Method that make the request to get the most popular movies.
   Future<Credits> getCredits(int page, int? movieId) async {
     /// If the movieId is null, then we will throw an [ArgumentError].

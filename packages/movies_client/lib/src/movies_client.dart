@@ -1,3 +1,5 @@
+// ignore_for_file: use_setters_to_change_properties
+
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -24,6 +26,11 @@ class MoviesClient {
         'api_key': _apiKey,
         'language': language,
       };
+
+  /// Method to get the popular movies.
+  void changeLanguage(String language) {
+    this.language = language;
+  }
 
   /// The client used to make requests.
   final _client = http.Client();
@@ -78,6 +85,21 @@ class MoviesClient {
 
     try {
       return Credits.fromJson(response);
+    } catch (e) {
+      throw const SpecifiedTypeNotMatchedException();
+    }
+  }
+
+  /// Method that make the request to get the languages available.
+  Future<List<Language>> getLanguages() async {
+    final response = await _get<List<JSON>>('/3/configuration/languages', {});
+
+    try {
+      final languages = response.map(Language.fromJson).toList()
+        ..sort(
+          (a, b) => a.englishName.compareTo(b.englishName),
+        );
+      return languages;
     } catch (e) {
       throw const SpecifiedTypeNotMatchedException();
     }
