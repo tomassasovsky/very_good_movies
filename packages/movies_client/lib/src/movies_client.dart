@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movies_client/src/models/models.dart';
+import 'package:movies_client/movies_client.dart';
 
 /// {@template movies_client}
 /// The Client used to make requests to the Movie Database API.
@@ -19,16 +19,16 @@ class MoviesClient {
   final String _apiKey;
 
   /// Language of the movies.
-  String language;
+  Language language;
 
   /// The query parameters used across all requests.
   JSON get defaultParams => {
         'api_key': _apiKey,
-        'language': language,
+        'language': language.iso,
       };
 
   /// Method to get the popular movies.
-  void changeLanguage(String language) {
+  void changeLanguage(Language language) {
     this.language = language;
   }
 

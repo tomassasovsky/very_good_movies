@@ -12,6 +12,8 @@ class MovieTheme {
           backgroundColor: Colors.grey.shade700,
           elevation: 3,
         ),
+        backgroundColor: Colors.grey.shade700,
+        indicatorColor: Colors.white,
         cardColor: Colors.grey.shade700,
         textTheme: TextTheme(
           /// Make all the styles have a white color
@@ -49,6 +51,8 @@ class MovieTheme {
           elevation: 3,
         ),
         cardColor: Colors.white,
+        backgroundColor: Colors.white,
+        indicatorColor: Colors.black,
         textTheme: TextTheme(
           /// Make all the styles have a white color
           bodyText1: const TextStyle(color: Colors.black),

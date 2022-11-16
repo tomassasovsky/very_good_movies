@@ -13,7 +13,7 @@ class CreditsRepository {
   final MoviesClient _client;
 
   /// Method to update the language of the movies.
-  void setLanguage(String language) {
+  void setLanguage(Language language) {
     _client.changeLanguage(language);
   }
 

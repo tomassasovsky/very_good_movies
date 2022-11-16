@@ -4,19 +4,20 @@ import 'package:data_persistence_repository/data_persistence_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movies_client/movies_client.dart';
 import 'package:movies_repository/movies_repository.dart';
 
 part 'settings_state.dart';
 
 abstract class SettingsCubitBase {
   void toggleDarkMode();
-  void changeLanguage(String language);
+  void changeLanguage(Language language);
 }
 
 class SettingsCubit extends Cubit<SettingsState> implements SettingsCubitBase {
   SettingsCubit({
     required ThemeMode themeMode,
-    required String language,
+    required Language language,
     required DataPersistenceRepository dataPersistenceRepository,
     required MoviesRepository moviesRepository,
     required CreditsRepository creditsRepository,
@@ -31,7 +32,7 @@ class SettingsCubit extends Cubit<SettingsState> implements SettingsCubitBase {
         );
 
   @override
-  Future<void> changeLanguage(String language) async {
+  Future<void> changeLanguage(Language language) async {
     await _dataPersistenceRepository.setLanguage(language);
     _moviesRepository.setLanguage(language);
     _creditsRepository.setLanguage(language);

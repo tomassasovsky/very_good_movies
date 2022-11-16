@@ -1,3 +1,4 @@
+import 'package:data_persistence_repository/data_persistence_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_client/movies_client.dart';
@@ -50,15 +51,21 @@ class _ViewSettingsState extends State<ViewSettings> {
                 trailing: DropdownButton<String>(
                   dropdownColor: Theme.of(context).cardColor,
                   style: Theme.of(context).textTheme.caption,
-                  value: state.language,
+                  iconEnabledColor: Theme.of(context).indicatorColor,
+                  value: state.language.iso,
                   onChanged: (value) {
+                    final selectedLanguage = widget.languages.firstWhere(
+                      (language) => language.iso == value,
+                    );
                     setState(() {
-                      context.read<SettingsCubit>().changeLanguage(value!);
+                      context.read<SettingsCubit>().changeLanguage(
+                            selectedLanguage,
+                          );
                     });
                   },
                   items: widget.languages
                       .map(
-                        (language) => DropdownMenuItem(
+                        (language) => DropdownMenuItem<String>(
                           value: language.iso,
                           child: Text(
                             language.englishName,

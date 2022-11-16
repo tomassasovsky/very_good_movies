@@ -10,7 +10,11 @@ void main() {
         CreditsRepository(
           MoviesClient(
             apiKey: '',
-            language: '',
+            language: Language(
+              iso: 'en_US',
+              englishName: 'English',
+              name: 'English',
+            ),
           ),
         ),
         isNotNull,

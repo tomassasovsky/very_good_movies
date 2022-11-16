@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   hive: ^2.2.3
+  movies_client:
+    path: ../movies_client
   path_provider: ^2.0.10
 
 dev_dependencies:

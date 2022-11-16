@@ -7,13 +7,13 @@ class SettingsState extends Equatable {
   });
 
   final ThemeMode themeMode;
-  final String language;
+  final Language language;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
 
   SettingsState copyWith({
     ThemeMode? themeMode,
-    String? language,
+    Language? language,
   }) {
     return SettingsState(
       themeMode: themeMode ?? this.themeMode,

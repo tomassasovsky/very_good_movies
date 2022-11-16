@@ -29,7 +29,7 @@ class PageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final language = dataPersistenceRepository.language ?? 'en_US';
+    final language = dataPersistenceRepository.language ?? Language.enUS();
 
     final moviesClient = MoviesClient(
       apiKey: dotenv.env['API_KEY'] ?? '',
